@@ -17,7 +17,7 @@
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail());
         document.getElementById('user').innerHTML = "Logged in as: " + profile.getEmail();
-        document.getElementById('quiz').innerHTML = '<form action="http://google.com"><input type="submit" value="Go to Google" /></form>';
+        document.getElementById('quiz').innerHTML = '<form action="http://google.com"><input type="submit" value="Take the quiz!" /></form>';
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
