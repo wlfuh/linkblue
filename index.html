@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="Y609479602266-50nhdl7k3a3u5ckvqnagl41n1cvajptn.apps.googleusercontent.com.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="609479602266-50nhdl7k3a3u5ckvqnagl41n1cvajptn.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <title>Link Blue - Home</title>
@@ -16,15 +16,19 @@
         console.log('Family Name: ' + profile.getFamilyName());
         console.log("Image URL: " + profile.getImageUrl());
         console.log("Email: " + profile.getEmail());
-
+        document.getElementById('user').innerHTML = "Logged in as: " + profile.getEmail();
+        document.getElementById('quiz').innerHTML = '<form action="http://google.com"><input type="submit" value="Go to Google" /></form>';
         // The ID token you need to pass to your backend:
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
       };
     </script>
     <h1> Link Blue</h1>
-    <p> Make money and live better </p>
-
+    <p> Meet someone new in 5 minutes </p>
+   <p> Just fill out our form and we'll connect with someone we know you'll enjoy </p>
+   <p> Meet Someone </p>
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <div id="user"></div>
+    <div id="quiz"></div>
   </body>
 </html>
