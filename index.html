@@ -1,34 +1,70 @@
 <html lang="en">
-  <head>
+
+<head>
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="609479602266-50nhdl7k3a3u5ckvqnagl41n1cvajptn.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-  </head>
-  <title>Link Blue - Home</title>
-  <body>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<style type="text/css">
+    body {
+        background-color: rgba(0, 50, 106, 0.80);
+        font-family: 'PT Sans', sans-serif;
+        font-size: 17px;
+    }
+
+    header,
+    main {
+        color: white;
+        max-width: 1310px;
+        width: 75%;
+        margin: 0 auto;
+    }
+</style>
+<title>Link Blue - Home</title>
+
+<body>
     <script>
-      function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-        document.getElementById('user').innerHTML = "Logged in as: " + profile.getEmail();
-        document.getElementById('quiz').innerHTML = '<form action="quiz.html"><input type="submit" value="Take the quiz!" /></form>';
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      };
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
+            document.getElementById('user').innerHTML = "Logged in as: " + profile.getEmail();
+            document.getElementById('quiz').innerHTML = '<form action="quiz.html"><input type="submit" value="Take the quiz!" /></form>';
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+        };
     </script>
-    <h1> Link Blue</h1>
-    <p> Meet someone new in 5 minutes </p>
-   <p> Just fill out our form and we'll connect with someone we know you'll enjoy </p>
-   <p> Meet Someone </p>
-    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-    <div id="user"></div>
-    <div id="quiz"></div>
-  </body>
+    <header>
+        <h1> Link Blue</h1>
+    </header>
+    <main>
+        <p> Meet someone new in 5 minutes </p>
+        <p> Just fill out our form and we'll connect with someone we know you'll enjoy </p>
+        <p> Meet Someone </p>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    </main>
+    <section class="leftbar">
+        <div id="user"></div>
+        <div id="quiz"></div>
+        <div id="faq">
+            <form action="faq.html"><input type="submit" value="FAQ" /></form>
+        </div>
+    </section>
+</body>
+
 </html>
