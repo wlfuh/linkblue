@@ -1,0 +1,30 @@
+body {background-color: #9CB2FA !important;}
+.jumbotron {
+   text-align: left;
+}
+
+.jumbotron h1 {
+   font-size: 40px;
+}
+
+@media (min-width: 768px) {
+   .container {
+       max-width: initial;
+   }
+}
+#quiz > .col-sm-4{
+  padding-left:0;
+}
+#user {
+   margin: 10px 0;
+}
+.header a:hover{
+  color: black !important ;
+}
+a , a:visited{
+  color:white;
+}
+
+#result{
+  font-size: 17px;
+}
