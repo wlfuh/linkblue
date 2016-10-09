@@ -62,17 +62,17 @@
                 storageBucket: "gs://linkblue-145814.appspot.com"
             };
             firebase.initializeApp(config);
-            var ref = firebase.database().ref("profiles");
+            /*var ref = firebase.database().ref("profiles");
             ref.on("value", function(snapshot) {
                 console.log(snapshot.val());
             }, function(errorObject) {
                 console.log("The read failed: " + errorObject.code);
-            });
-            firebase.database().ref("sample@sample.net").set({
+            });*/
+            firebase.database().ref("asdf1234").set({
                 "bloodType": "O",
                 "numToes": 10
             });
-            firebase.database().ref("sample2@sample2.net").set({
+            firebase.database().ref("asdf2231").set({
                 "bloodType": "B",
                 "numToes": 10
             });
