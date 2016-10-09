@@ -1,0 +1,11 @@
+Quiz:
+
+Do you have friends?
+
+Do you like reading?
+
+Do you like yoga?
+
+What kind of music do you listen to?
+
+List your hobbies.
