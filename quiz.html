@@ -1,29 +1,136 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="609479602266-50nhdl7k3a3u5ckvqnagl41n1cvajptn.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-  </head>
-  <title>Quiz</title>
-  <body>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Link Blue - Quiz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+    <style type="text/css">
+        .jumbotron {
+            text-align: left;
+        }
+
+        .jumbotron h1 {
+            font-size: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: initial;
+            }
+        }
+
+        #user {
+            margin: 10px 0;
+        }
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <script src="md5.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
     <script>
-      function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log("Image URL: " + profile.getImageUrl());
-        console.log("Email: " + profile.getEmail());
-        document.getElementById('user').innerHTML = "Logged in as: " + profile.getEmail();
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      };
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var config = {
+                apiKey: " ",
+                authDomain: "linkblue-145814.firebaseio.com",
+                databaseURL: "https://linkblue-145814.firebaseio.com",
+                storageBucket: "gs://linkblue-145814.appspot.com"
+            };
+            firebase.initializeApp(config);
+          //  var ref = new Firebase("https://docs-examples.firebaseio.com/web/saving-data/fireblog");
+            /*ref.on("value", function(snapshot) {
+                console.log(snapshot.val());
+            }, function(errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });*/
+            /*firebase.database().ref("asdf1234").set({
+                "bloodType": "O",
+                "numToes": 10
+            });
+            firebase.database().ref("asdf2231").set({
+                "bloodType": "B",
+                "numToes": 10
+            });*/
+            var profile = googleUser.getBasicProfile();
+            /*console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());*/
+            document.getElementById('user').innerHTML = "Logged in as: " + profile.getEmail();
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+            var usersRef = firebase.database().ref("ID");
+            usersRef.child(md5(profile.getEmail())+"").set({
+              hasProfile: true,
+              name: profile.getName()
+            });
+        };
     </script>
-    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="display:none"></div>
-    <h1> Quiz</h1>
-    <div id="user"></div>
-  </body>
+
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="index.html">Home</a></li>
+                    <li role="presentation"><a href="#">About</a></li>
+                    <li role="presentation"><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Link Blue</h3>
+        </div>
+
+        <div class="jumbotron">
+            <h1>Meet someone new in 5 minutes</h1>
+            <p class="lead">Just fill out our form and we'll connect with someone we know you'll enjoy</p>
+            <p>
+                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                <div id="user"></div>
+                <div id="quiz"></div>
+            </p>
+        </div>
+
+        <div class="row marketing" id="loggedOpt">
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2016 Link Blue</p>
+        </footer>
+
+    </div>
+    <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="ie10-viewport-bug-workaround.js"></script>
+</body>
+
 </html>

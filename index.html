@@ -51,46 +51,71 @@
 </head>
 
 <body>
+    <script src="md5.js"> </script>
     <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
     <script>
+        window.onload = function(){
+          var config = {
+              apiKey: " ",
+              authDomain: "linkblue-145814.firebaseio.com",
+              databaseURL: "https://linkblue-145814.firebaseio.com",
+              storageBucket: "gs://linkblue-145814.appspot.com"
+          };
+          firebase.initializeApp(config);
+        }
         function onSignIn(googleUser) {
             // Useful data for your client-side scripts:
-            var config = {
-                apiKey: " ",
-                authDomain: "linkblue-145814.firebaseio.com",
-                databaseURL: "https://linkblue-145814.firebaseio.com",
-                storageBucket: "gs://linkblue-145814.appspot.com"
-            };
-            firebase.initializeApp(config);
-            /*var ref = firebase.database().ref("profiles");
-            ref.on("value", function(snapshot) {
+          //  var ref = new Firebase("https://docs-examples.firebaseio.com/web/saving-data/fireblog");
+            /*ref.on("value", function(snapshot) {
                 console.log(snapshot.val());
             }, function(errorObject) {
                 console.log("The read failed: " + errorObject.code);
             });*/
-            firebase.database().ref("asdf1234").set({
+            var usersRef = firebase.database().ref("ID");
+            /*usersRef.set({
+                alanisawesome: {
+                    date_of_birth: "June 23, 1912",
+                    full_name: "Alan Turing"
+                },
+                gracehop: {
+                    date_of_birth: "December 9, 1906",
+                    full_name: "Grace Hopper"
+                }
+            });*/
+            /*firebase.database().ref("asdf1234").set({
                 "bloodType": "O",
                 "numToes": 10
             });
             firebase.database().ref("asdf2231").set({
                 "bloodType": "B",
                 "numToes": 10
-            });
+            });*/
             var profile = googleUser.getBasicProfile();
-            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            /*console.log("ID: " + profile.getId()); // Don't send this directly to your server!
             console.log('Full Name: ' + profile.getName());
             console.log('Given Name: ' + profile.getGivenName());
             console.log('Family Name: ' + profile.getFamilyName());
             console.log("Image URL: " + profile.getImageUrl());
-            console.log("Email: " + profile.getEmail());
+            console.log("Email: " + profile.getEmail());*/
             document.getElementById('user').innerHTML = "Logged in as: " + profile.getEmail();
-            document.getElementById('quiz').innerHTML = '<form action="quiz.html"><input type="submit" class="btn btn-info" value="Take Quiz!"></form>';
-
-            document.getElementById('loggedOpt').innerHTML =
-                '<div class="col-lg-6"><h4><a href="quiz.html">Take Quiz</a></h4><p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p></div><div class="col-lg-6"><h4><a href="match.html">Look for Matches</a></h4><p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p></div>';
-            // The ID token you need to pass to your backend:
             var id_token = googleUser.getAuthResponse().id_token;
             console.log("ID Token: " + id_token);
+            var hasProfile = false;
+            usersRef.on("value", function(snapshot) {
+              idObj = snapshot.val();
+              hasProfile = idObj && md5(profile.getEmail())+"" in idObj;
+            });
+            console.log(hasProfile);
+            if(hasProfile){
+              document.getElementById('loggedOpt').innerHTML =
+                '<div class="col-lg-6"><h4><a href="quiz.html">Retake Quiz</a></h4><p>Take the quiz to find your social mate.</p></div><div class="col-lg-6"><h4><a href="match.html">Look for Matches</a></h4><p>Now that you have completed the quiz, you can find your match!</p></div>';
+            } else{
+              document.getElementById('quiz').innerHTML = '<form action="quiz.html"><input type="submit" class="btn btn-info" value="Take Quiz"></form>';
+              document.getElementById('loggedOpt').innerHTML =
+                '<div class="col-lg-6"><h4><a href="quiz.html">Take Quiz</a></h4><p>Take the quiz to find your social mate.</p></div><div class="col-lg-6"><h4>Look for Matches</h4><p>Finish the quiz, then look for matches.</p></div>';
+            }
+            // The ID token you need to pass to your backend:
+
         };
     </script>
 
